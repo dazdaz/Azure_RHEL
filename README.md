@@ -12,13 +12,12 @@ $ az vm create --location southeastasia --resource-group rhel75-rg --name rhel75
 sudo yum -y update ; sudo reboot
 </pre>
 
+* Temporary Disk
 <pre>
 $ df -h /mnt/resource
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sdb1       3.9G  2.1G  1.7G  56% /mnt/resource
-</pre>
 
-<pre>
 $ swapon -s --all
 Filename                                Type            Size    Used    Priority
 /mnt/resource/swapfile                  file    2097148 0       -1
@@ -65,4 +64,15 @@ $ az vm open-port --port 80 --resource-group rhel75-rg --name rhel75
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
 sudo yum install azure-cli
+</pre>
+
+* Install Docker CE 18.03 requires a later version of container-selinux
+<pre>
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum-config-manager --disable docker-ce-edge
+sudo yum makecache fast
+sudo yum install -y http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.42-1.gitad8f0f7.el7.noarch.rpm
+sudo yum install http://mirror.centos.org/centos/7/extras/x86_64/Packages/pigz-2.3.3-1.el7.centos.x86_64.rpm
+sudo yum install -y docker-ce
 </pre>
