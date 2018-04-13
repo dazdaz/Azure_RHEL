@@ -1,10 +1,10 @@
 ## Deploy and configure RHEL 7.5 Server on Azure
 #### Adding data disks onto an Azure Linux VM + Re-sizing a data-disk
 #### https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
-#### /dev/sda OS Disk
-#### /dev/sdb Temporary Disk
-#### /dev/sdc Data Disk #1
-#### /dev/sdd Data Disk #2
+* /dev/sda OS Disk
+* /dev/sdb Temporary Disk
+* /dev/sdc Data Disk #1
+* /dev/sdd Data Disk #2
 
 <pre>
 $ az vm create --location southeastasia --resource-group rhel75-rg --name rhel75 --image RedHat:RHEL:7.3:latest \
@@ -58,4 +58,11 @@ UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive  ext4    defaults,nofail 
 
 <pre>
 $ az vm open-port --port 80 --resource-group rhel75-rg --name rhel75
+</pre>
+
+* Install azure-cli
+<pre>
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+sudo yum install azure-cli
 </pre>
