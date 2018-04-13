@@ -7,7 +7,7 @@
 #### /dev/sdd Data Disk #2
 
 <pre>
-az vm create --location southeastasia --resource-group rhel75-rg --name rhel75 --image RedHat:RHEL:7.3:latest \
+$ az vm create --location southeastasia --resource-group rhel75-rg --name rhel75 --image RedHat:RHEL:7.3:latest \
   --admin-username dazdaz --admin-password 'SS12345678$$' --size Standard_B1ms --data-disk-sizes-gb 5 5
 sudo yum -y update ; sudo reboot
 </pre>
@@ -45,17 +45,17 @@ $ dmesg | grep sdd
 </pre>
 
 <pre>
-(echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sdc
-sudo mkfs -t ext4 /dev/sdc1
-sudo mkdir /datadrive && sudo mount /dev/sdc1 /datadrive
-df -h
-mount
-sudo -i blkid | grep sdc1
+$ (echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sdc
+$ sudo mkfs -t ext4 /dev/sdc1
+$ sudo mkdir /datadrive && sudo mount /dev/sdc1 /datadrive
+$ df -h
+$ mount
+$ sudo -i blkid | grep sdc1
 /dev/sdc1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
 # Add to /etc/fstab
 UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive  ext4    defaults,nofail   1  2
 </pre>
 
 <pre>
-az vm open-port --port 80 --resource-group rhel75-rg --name rhel75
+$ az vm open-port --port 80 --resource-group rhel75-rg --name rhel75
 </pre>
