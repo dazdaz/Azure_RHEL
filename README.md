@@ -87,9 +87,13 @@ docker ps
 </pre>
 
 * Configure your VM's firewall rules
+<pre>
 $ sudo firewall-cmd --add-port=80/tcp --permanent
 $ sudo firewall-cmd --reload
 $ sudo firewall-cmd --list-all
+</pre>
 
 * Set our timezone
+<pre>
 $ sudo timedatectl set-timezone Asia/Singapore
+</pre>
