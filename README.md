@@ -85,3 +85,11 @@ docker version
 docker run hello-world
 docker ps
 </pre>
+
+* Configure your VM's firewall rules
+$ sudo firewall-cmd --add-port=80/tcp --permanent
+$ sudo firewall-cmd --reload
+$ sudo firewall-cmd --list-all
+
+* Set our timezone
+$ sudo timedatectl set-timezone Asia/Singapore
