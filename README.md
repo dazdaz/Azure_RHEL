@@ -7,7 +7,7 @@
 * /dev/sdd Data Disk #2
 
 <pre>
-$ az group create myrhel-rg
+$ az group create --name myrhel-rg --location southeastasia
 $ az vm create --location southeastasia --resource-group myrhel-rg --name myrhel --public-ip-address-dns-name myrhel \
 --image RedHat:RHEL:7.3:latest --admin-username myuser --admin-password 'SS12345678$$' --size Standard_B1ms \
 --data-disk-sizes-gb 5 5 --tags 'environmenttype=dev' 'owner=harry@oceanliner.com'
