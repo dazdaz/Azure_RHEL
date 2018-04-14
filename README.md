@@ -7,8 +7,12 @@
 * /dev/sdd Data Disk #2
 
 <pre>
-$ az vm create --location southeastasia --resource-group rhel75-rg --name rhel75 --image RedHat:RHEL:7.3:latest \
-  --admin-username dazdaz --admin-password 'SS12345678$$' --size Standard_B1ms --data-disk-sizes-gb 5 5
+$ az group create myrhel-rg
+$ az vm create --location southeastasia --resource-group myrhel-rg --name myrhel --public-ip-address-dns-name myrhel \
+--image RedHat:RHEL:7.3:latest --admin-username myuser --admin-password 'SS12345678$$' --size Standard_B1ms \
+--data-disk-sizes-gb 5 5 --tags 'environmenttype=dev' 'owner=harry@oceanliner.com'
+ssh -l myuser myrhel.southeastasia.cloudapp.azure.com
+# Update to RHEL 7.5
 sudo yum -y update ; sudo reboot
 </pre>
 
@@ -55,6 +59,7 @@ $ sudo -i blkid | grep sdc1
 UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive  ext4    defaults,nofail   1  2
 </pre>
 
+* Open up firewall port in Azure to the VM
 <pre>
 $ az vm open-port --port 80 --resource-group rhel75-rg --name rhel75
 </pre>
