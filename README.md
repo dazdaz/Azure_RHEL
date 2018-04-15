@@ -12,7 +12,7 @@
 $ az group create --name myrhel-rg --location southeastasia
 $ az vm create --location southeastasia --resource-group myrhel-rg --name myrhel --public-ip-address-dns-name myrhel \
 --image RedHat:RHEL:7.3:latest --admin-username myuser --admin-password 'SS12345678$$' --size Standard_B1ms \
---data-disk-sizes-gb 5 5 --tags 'environmenttype=dev' 'owner=harry@oceanliner.com'
+--data-disk-sizes-gb 5 5 --tags environmenttype=dev owner=harry@oceanliner.com
 ssh -l myuser myrhel.southeastasia.cloudapp.azure.com
 # Update to RHEL 7.5
 sudo yum -y update ; sudo reboot
