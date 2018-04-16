@@ -61,7 +61,7 @@ $ sudo -i blkid | grep sdc1
 UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive1  ext4    defaults,nofail   1  2
 ```
 
-## Adding a 3rd data-disk dynamically to a Linux VM, after VM deployment - Takes ~90 minutes to provision disk
+## Adding a 3rd data-disk dynamically to a Linux VM, after VM deployment
 * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 * P20 Premium Disk = 512GiB of storage space, 2300 IOPS and 150 MB/sec which costs USD $73.220/month.
 
