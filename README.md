@@ -52,13 +52,31 @@ $ dmesg | grep sdd
 ```
 $ (echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sdc
 $ sudo mkfs -t ext4 /dev/sdc1
-$ sudo mkdir /datadrive && sudo mount /dev/sdc1 /datadrive
+$ sudo mkdir /datadrive1 && sudo mount /dev/sdc1 /datadrive1
 $ df -h
 $ mount
 $ sudo -i blkid | grep sdc1
 /dev/sdc1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
 # Add to /etc/fstab
-UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive  ext4    defaults,nofail   1  2
+UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive1  ext4    defaults,nofail   1  2
+```
+
+## Adding a 3rd data-disk dynamically to a Linux VM, after VM deployment - Takes ~90 minutes to provision disk
+* https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
+* P20 Premium Disk = 512GiB of storage space, 2300 IOPS and 150 MB/sec which costs USD $73.220/month.
+
+```
+$ az vm disk attach --vm-name rhel75 --resource-group rhel75-rg --disk myDataDisk3 --size-gb 512 --sku Premium_LRS --new
+$ dmesg | grep sde
+$ (echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sde
+$ sudo mkfs -t ext4 /dev/sde1
+$ sudo mkdir /datadrive3 && sudo mount /dev/sde1 /datadrive3
+$ df -h
+$ mount
+$ sudo -i blkid | grep sdc1
+/dev/sdc1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
+# Add to /etc/fstab
+UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive3  ext4    defaults,nofail   1  2
 ```
 
 * Open up firewall port in Azure to the VM
@@ -70,7 +88,7 @@ $ az vm open-port --port 80 --resource-group rhel75-rg --name rhel75
 ```
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
-sudo yum install azure-cli
+sudo yum -y install azure-cli
 ```
 
 * Install Docker CE 18.03 requires a later version of container-selinux
