@@ -58,7 +58,7 @@ $ mount
 $ sudo -i blkid | grep sdc1
 /dev/sdc1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
 # Add to /etc/fstab
-UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive1  ext4    defaults,nofail   1  2
+UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive1  ext4    defaults,nofail,barrier=0   0  2
 ```
 
 ## Adding a 3rd data-disk dynamically to a Linux VM, after VM deployment
