@@ -74,10 +74,13 @@ $ sudo mkdir /datadrive3 && sudo mount /dev/sde1 /datadrive3
 $ df -h
 $ mount
 $ sudo -i blkid | grep sdc1
-/dev/sdc1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
+/dev/sde1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
 # Add to /etc/fstab
-UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive3  ext4    defaults,nofail   1  2
+UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive3  ext4    defaults,nofail,barrier=0   0  2
 ```
+* Use barrier=0 mount option with ext4 on Azure Premium Disks
+* Use nobarrier mount option with xfs on Azure Premium Disks
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/premium-storage#premium-storage-for-linux-vms
 
 * Open up firewall port in Azure to the VM
 ```
