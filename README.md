@@ -71,7 +71,7 @@ $ az vm disk attach --vm-name rhel75 --resource-group rhel75-rg --disk myDataDis
 $ dmesg | grep sde
 $ (echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sde
 $ sudo mkfs -t ext4 /dev/sde1
-$ sudo mkdir /datadrive3 && sudo mount /dev/sde1 /datadrive3
+$ sudo mkdir /datadrive3 && sudo mount -o barrier=0 /dev/sde1 /datadrive3
 $ df -h
 $ mount
 $ sudo -i blkid | grep sde1
