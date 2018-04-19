@@ -73,7 +73,7 @@ $ sudo mkfs -t ext4 /dev/sde1
 $ sudo mkdir /datadrive3 && sudo mount /dev/sde1 /datadrive3
 $ df -h
 $ mount
-$ sudo -i blkid | grep sdc1
+$ sudo -i blkid | grep sde1
 /dev/sde1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
 # Add to /etc/fstab
 UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive3  ext4    defaults,nofail,barrier=0   0  2
