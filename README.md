@@ -69,11 +69,21 @@ UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive1  ext4    defaults,nofail
 ```
 $ az vm disk attach --vm-name rhel75 --resource-group rhel75-rg --disk myDataDisk3 --size-gb 512 --sku Premium_LRS --new
 $ dmesg | grep sde
+
+# Check that the disk has been provisioned successfully
+$ az disk list --resource-group ubuntu1710-rg --output table
+Name                                                  ResourceGroup    Location       Zones    Sku             SizeGb  ProvisioningState    OsType
+----------------------------------------------------  ---------------  -------------  -------  ------------  --------  -------------------  --------
+myDataDisk1                                           ubuntu1710-rg    southeastasia           Standard_LRS         5  Succeeded
+myDataDisk2                                           ubuntu1710-rg    southeastasia           Standard_LRS         5  Succeeded
+myDataDisk3                                           ubuntu1710-rg    southeastasia           Standard_LRS         5  Succeeded
+ubuntu1710_OsDisk_1_f9c75e228c684b23b12536b3610e92a6  ubuntu1710-rg    southeastasia           Premium_LRS         30  Succeeded            Linux
+
 $ (echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sde
 $ sudo mkfs -t ext4 /dev/sde1
 $ sudo mkdir /datadrive3 && sudo mount -o barrier=0 /dev/sde1 /datadrive3
 $ df -h
-$ mount
+
 $ sudo -i blkid | grep sde1
 /dev/sde1: UUID="cda63657-f1a5-4739-b50c-8339768e8ec8" TYPE="ext4"
 # Add to /etc/fstab
