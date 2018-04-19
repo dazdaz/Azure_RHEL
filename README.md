@@ -61,23 +61,26 @@ $ sudo -i blkid | grep sdc1
 UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive1  ext4    defaults,nofail,barrier=0   0  2
 ```
 
+And repeat for /dev/sdd - The 2nd Data Disk.
+
 ## Adding a 3rd data-disk dynamically to a Linux VM, after VM deployment
 * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 * P20 Premium Disk = 512GiB of storage space, 2300 IOPS and 150 MB/sec which costs USD $73.220/month.
 * Data Disk names must be unique per subscription, not resource group
+* Label your data disks with a name which is easily recognisable : rhel75_myDataDisk1
 
 ```
-$ az vm disk attach --vm-name rhel75 --resource-group rhel75-rg --disk myDataDisk3 --size-gb 512 --sku Premium_LRS --new
+$ az vm disk attach --vm-name rhel75 --resource-group rhel75-rg --disk rhel75_myDataDisk3 --size-gb 512 --sku Premium_LRS --new
 $ dmesg | grep sde
 
 # Check that the disk has been provisioned successfully
 $ az disk list --resource-group ubuntu1710-rg --output table
 Name                                                  ResourceGroup    Location       Zones    Sku             SizeGb  ProvisioningState    OsType
 ----------------------------------------------------  ---------------  -------------  -------  ------------  --------  -------------------  --------
-myDataDisk1                                           ubuntu1710-rg    southeastasia           Standard_LRS         5  Succeeded
-myDataDisk2                                           ubuntu1710-rg    southeastasia           Standard_LRS         5  Succeeded
-myDataDisk3                                           ubuntu1710-rg    southeastasia           Standard_LRS         5  Succeeded
-ubuntu1710_OsDisk_1_f9c75e228c684b23b12536b3610e92a6  ubuntu1710-rg    southeastasia           Premium_LRS         30  Succeeded            Linux
+rhel75_myDataDisk1                                    rhel75-rg    southeastasia           Standard_LRS         5  Succeeded
+rhel75_myDataDisk2                                    rhel75-rg    southeastasia           Standard_LRS         5  Succeeded
+rhel75_myDataDisk3                                    rhel75-rg    southeastasia           Standard_LRS         5  Succeeded
+ubuntu1710_OsDisk_1_f9c75e228c684b23b12536b3610e92a6  rhel75-rg    southeastasia           Premium_LRS         30  Succeeded            Linux
 
 $ (echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sde
 $ sudo mkfs -t ext4 /dev/sde1
