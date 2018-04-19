@@ -64,6 +64,7 @@ UUID=cda63657-f1a5-4739-b50c-8339768e8ec8   /datadrive1  ext4    defaults,nofail
 ## Adding a 3rd data-disk dynamically to a Linux VM, after VM deployment
 * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 * P20 Premium Disk = 512GiB of storage space, 2300 IOPS and 150 MB/sec which costs USD $73.220/month.
+* Data Disk names must be unique per subscription, not resource group
 
 ```
 $ az vm disk attach --vm-name rhel75 --resource-group rhel75-rg --disk myDataDisk3 --size-gb 512 --sku Premium_LRS --new
