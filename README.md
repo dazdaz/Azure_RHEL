@@ -2,8 +2,8 @@
 #### Adding data disks onto an Azure Linux VM + Re-sizing a data-disk
 #### https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 ```
-/dev/sda OS Disk
- /dev/sdb Temporary Disk
+ /dev/sda OS Disk
+ /dev/sdb Temporary Disk mounted on /mnt
  /dev/sdc Data Disk #1
  /dev/sdd Data Disk #2
 ```
@@ -70,7 +70,8 @@ And repeat for /dev/sdd - The 2nd Data Disk.
 * Label your data disks with a name which is easily recognisable : rhel75_myDataDisk1
 
 ```
-$ az vm disk attach --vm-name rhel75 --resource-group rhel75-rg --disk rhel75_myDataDisk3 --size-gb 512 --sku Premium_LRS --new
+$ az disk create -n myDataDisk3 -g rhel75-rg --size-gb 10 --location southeastasia --zone 1
+$ az vm disk attach --disk rhel75_myDataDisk3 --vm-name rhel75 --resource-group rhel75-rg--size-gb 512 --sku Premium_LRS --new
 $ dmesg | grep sde
 
 # Check that the disk has been provisioned successfully
