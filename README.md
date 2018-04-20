@@ -70,7 +70,6 @@ And repeat for /dev/sdd - The 2nd Data Disk.
 * Label your data disks with a name which is easily recognisable : rhel75_myDataDisk1
 
 ```
-$ az disk create -n myDataDisk3 -g rhel75-rg --size-gb 10 --location southeastasia --zone 1
 $ az vm disk attach --disk rhel75_myDataDisk3 --vm-name rhel75 --resource-group rhel75-rg--size-gb 512 --sku Premium_LRS --new
 $ dmesg | grep sde
 
